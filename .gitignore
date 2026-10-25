@@ -18,3 +18,4 @@ logs/*.log
 # Operating system files
 .DS_Store
 Thumbs.db
+server/log_server.py00000000
