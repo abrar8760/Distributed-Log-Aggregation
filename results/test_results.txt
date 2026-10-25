@@ -1,0 +1,13 @@
+DISTRIBUTED LOG AGGREGATION - TEST RESULTS
+==========================================
+
+Client tests:
+PASS: Invalid log level is rejected.
+PASS: Missing message is rejected.
+PASS: Valid log level is accepted.
+
+All 3 tests passed.
+
+Priority tests:
+PASS: All severity priorities are correct.
+All priority tests passed.

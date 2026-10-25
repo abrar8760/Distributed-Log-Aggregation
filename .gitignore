@@ -1,0 +1,20 @@
+# Python virtual environments
+.venv/
+ryu311-env/
+venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Temporary editor files
+*.swp
+*.swo
+*~
+
+# Generated log output
+logs/*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
