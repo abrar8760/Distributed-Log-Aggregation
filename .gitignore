@@ -1,7 +1,9 @@
 # Python virtual environments
 .venv/
-ryu311-env/
 venv/
+ryu-env/
+ryu311-env/
+osken-env/
 
 # Python cache files
 __pycache__/
@@ -15,7 +17,11 @@ __pycache__/
 # Generated log output
 logs/*.log
 
+# Environment variables and secrets
+.env
+.env.*
+
 # Operating system files
 .DS_Store
 Thumbs.db
-server/log_server.py00000000
+

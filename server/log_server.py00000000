@@ -1,0 +1,17 @@
+import socket
+
+HOST = "0.0.0.0"
+PORT = 9999
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+server_socket.bind((HOST, PORT))
+
+print(f"Log server listening on UDP port {PORT}...")
+
+while True:
+    data, address = server_socket.recvfrom(4096)
+
+    message = data.decode()
+
+    print(f"Received from {address}: {message}")
