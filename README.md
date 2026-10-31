@@ -141,19 +141,6 @@ During the congested run, the server log was inspected and the command `grep -c 
 - The iperf output recorded during the 100 Kbps experiment showed a receiver rate of about 94.8 Kbps. Its displayed datagram-loss count and percentage were inconsistent, so that loss percentage should be re-measured before being quoted as a final metric.
 - Repeat the tests with the server log cleared before each run, and use a longer ACK timeout or per-packet timestamps to distinguish delayed ACKs from missing ACKs.
 
-## Screenshots
-
-Add your own screenshots from the Ubuntu/Mininet session to the `screenshots/` folder. Suggested evidence:
-
-1. `01-topology-pingall.png` — Mininet topology running and `pingall` showing 0% dropped.
-2. `02-server-running.png` — log server running on h3.
-3. `03-iperf-congestion.png` — iperf client/server output during the background traffic test.
-4. `04-congested-delivery.png` — 100-packet delivery report during congestion.
-5. `05-baseline-delivery.png` — 100-packet delivery report after stopping iperf.
-6. `06-server-log.png` — server log showing received delivery-test messages.
-
-To capture a screenshot in Ubuntu, use the system screenshot tool or press `PrtSc`. Save the images with the filenames above inside this repository's `screenshots/` folder. Do not use fabricated or recreated output as experiment evidence.
-
 ## Future improvements
 
 - Clear or rotate server logs before each test so each run has an isolated packet count.
