@@ -57,11 +57,11 @@ def worker():
         first_item = log_queue.get()
         batch = [first_item]
 
-        # Collect messages that arrive within the short batching window
         deadline = time.monotonic() + BATCH_WINDOW
 
         while True:
             remaining = deadline - time.monotonic()
+
             if remaining <= 0:
                 break
 
@@ -70,7 +70,6 @@ def worker():
             except queue.Empty:
                 break
 
-        # PriorityQueue sorts by priority, then sequence number
         batch.sort(key=lambda item: (item[0], item[1]))
 
         for item in batch:
@@ -93,17 +92,47 @@ print("Priority order: CRITICAL > ERROR > WARNING > INFO")
 try:
     while True:
         data, address = server.recvfrom(4096)
-        message = data.decode("utf-8", errors="replace").strip()
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        packet = data.decode("utf-8", errors="replace").strip()
 
-        level = message.partition(":")[0].strip().upper()
+        packet_id = None
+
+        # New format: DATA|packet_id|LEVEL|message
+        if packet.startswith("DATA|"):
+            parts = packet.split("|", 3)
+
+            if len(parts) != 4:
+                print("Invalid DATA packet received.", flush=True)
+                continue
+
+            _, packet_id, level, content = parts
+            level = level.strip().upper()
+
+            if level not in LOG_FILES:
+                print("Invalid log level received.", flush=True)
+                continue
+
+            message = f"{level}: {content}"
+
+        else:
+            # Support the original format: LEVEL: message
+            message = packet
+            level = message.partition(":")[0].strip().upper()
+
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         priority = PRIORITY.get(level, 5)
 
         with sequence_lock:
             sequence_number += 1
             sequence = sequence_number
 
-        log_queue.put((priority, sequence, message, address, timestamp))
+        log_queue.put(
+            (priority, sequence, message, address, timestamp)
+        )
+
+        # ACK confirms that the server accepted the packet into its queue.
+        if packet_id:
+            acknowledgement = f"ACK|{packet_id}"
+            server.sendto(acknowledgement.encode("utf-8"), address)
 
 except KeyboardInterrupt:
     print("\nUDP Log Server stopped.")

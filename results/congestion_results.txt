@@ -1,0 +1,33 @@
+DISTRIBUTED LOG AGGREGATION
+CONGESTION TEST RESULTS
+Date: 31 October 2026
+
+TEST 1: CONGESTED NETWORK
+Bottleneck bandwidth: 100 Kbps
+Background UDP traffic: 2 Mbps requested
+Log packets sent: 100
+Log packets received by server: 100
+Acknowledgements received by client: 0
+Acknowledgement rate: 0%
+Measurement time: 2.070 seconds
+
+TEST 2: WITHOUT BACKGROUND TRAFFIC
+Bottleneck bandwidth: 100 Kbps
+Background UDP traffic: Stopped
+Log packets sent: 100
+Log packets received by server: 100
+Acknowledgements received by client: 100
+Acknowledgement rate: 100%
+Measurement time: 2.017 seconds
+
+OBSERVATION:
+During congestion, the server received all 100 log packets,
+but the client received no acknowledgements within its
+2-second timeout. Without background traffic, all 100
+acknowledgements were received.
+
+NOTE:
+An unacknowledged packet does not necessarily mean the
+original log packet was lost. The acknowledgement may
+have been delayed or dropped.
+
