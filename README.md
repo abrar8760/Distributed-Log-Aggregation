@@ -1,4 +1,4 @@
-# Distributed Log Aggregation
+    # Distributed Log Aggregation
 
 A Computer Networks project that collects severity-labelled log messages from virtual network hosts, sends them over UDP, and stores them centrally. The project uses Python, Mininet, Open vSwitch (OVS), and OS-Ken.
 
